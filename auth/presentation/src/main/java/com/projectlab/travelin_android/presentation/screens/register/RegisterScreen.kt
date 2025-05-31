@@ -11,14 +11,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.hilt.navigation.compose.hiltViewModel
 import com.projectlab.core.domain.model.Response
 import com.projectlab.travelin_android.presentation.screens.register.components.RegisterBottomBar
 import com.projectlab.travelin_android.presentation.screens.register.components.RegisterContent
 
 @Composable
 fun RegisterScreen(
-    viewModel: RegisterViewModel = hiltViewModel(),
+    viewModel: RegisterViewModel,
     onLoginClick: () -> Unit,
     onSuccessfulClick: () -> Unit,
 

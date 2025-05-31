@@ -14,10 +14,7 @@ dependencies {
     implementation(projects.core.domain)
     implementation(projects.core.presentation.designsystem)
 
-    // Navigation
-    // TODO this should be deleted, or used on :app module
-    implementation(libs.hilt.navigation)
-
     // Material Icons
     implementation(libs.androidx.compose.material.icons)
+
 }

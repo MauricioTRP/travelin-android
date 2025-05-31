@@ -15,8 +15,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.navigation.NavHostController
-import com.projectlab.core.presentation.designsystem.theme.Spacing
 import com.projectlab.core.presentation.designsystem.theme.spacing
 import com.projectlab.travelin_android.presentation.components.ButtonSimple
 import com.projectlab.travelin_android.presentation.components.OutlinedButtonWithIcons

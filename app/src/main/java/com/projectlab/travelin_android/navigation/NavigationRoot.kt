@@ -11,6 +11,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.projectlab.booking.presentation.search.activities.SearchActivityScreen
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
 import com.projectlab.booking.presentation.detail.activities.ActivityDetailScreen
@@ -21,8 +22,11 @@ import com.projectlab.core.data.di.LocationUtilsEntryPoint
 import com.projectlab.core.presentation.ui.viewmodel.LocationViewModel
 import com.projectlab.feature.onboarding.presentation.ui.OnboardingScreenRoot
 import com.projectlab.travelin_android.presentation.screens.login.LoginScreen
+import com.projectlab.travelin_android.presentation.screens.login.LoginViewModel
 import com.projectlab.travelin_android.presentation.screens.profile.ProfileScreen
+import com.projectlab.travelin_android.presentation.screens.profile.ProfileViewModel
 import com.projectlab.travelin_android.presentation.screens.register.RegisterScreen
+import com.projectlab.travelin_android.presentation.screens.register.RegisterViewModel
 import com.projectlab.travelin_android.presentation.screens.successful.SuccessfulScreen
 import dagger.hilt.android.EntryPointAccessors
 
@@ -56,6 +60,7 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
 
         composable(route = AuthScreens.Login.route) {
             LoginScreen(
+                viewModel = hiltViewModel<LoginViewModel>(),
                 onRegisterClick = { navController.navigate(AuthScreens.Register.route) },
                 onProfileClick = { navController.navigate(AuthScreens.Profile.route) }
             )
@@ -63,6 +68,7 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
 
         composable(route = AuthScreens.Register.route) {
             RegisterScreen(
+                viewModel = hiltViewModel<RegisterViewModel>(),
                 onLoginClick = { navController.navigate(AuthScreens.Login.route) },
                 onSuccessfulClick = { navController.navigate(AuthScreens.Successful.route) },
             )
@@ -70,11 +76,11 @@ private fun NavGraphBuilder.authGraph(navController: NavHostController) {
 
         composable(route = AuthScreens.Profile.route) {
             ProfileScreen(
+                viewModel = hiltViewModel<ProfileViewModel>(),
                 onLogoutClick = { navController.navigate(AuthScreens.Login.route) },
                 onHomeClick = { navController.navigate(HomeScreens.Home.route) }
             )
         }
-
         composable(route = AuthScreens.Successful.route) {
             SuccessfulScreen(
                 onProfileClick = { navController.navigate(AuthScreens.Profile.route) },
