@@ -50,7 +50,7 @@ class FirestoreHotelImpl @Inject constructor (
         userId: String,
         itinId: String,
         hotelId: String
-    ): Flow<HotelEntity?> = flow {
+    ): Result<HotelEntity?> = runCatching {
         // Get the document reference for the hotel
         val docRef = firestore
             .collection("Users").document(userId)
@@ -62,7 +62,7 @@ class FirestoreHotelImpl @Inject constructor (
         val snap = docRef.get().await()
         if (snap.exists()) {
             val dto = snap.toObject(FirestoreHotelDTO::class.java)
-            emit(
+            (
                 dto?.toDomain(
                     snap.id,
                     EntityId(userId),
@@ -70,14 +70,14 @@ class FirestoreHotelImpl @Inject constructor (
                 )
             )
         } else {
-            emit(null)
+            (null)
         }
     }
 
     override suspend fun getAllHotelsForItinerary(
         userId: String,
         itinId: String
-    ): Flow<List<HotelEntity>> = flow {
+    ): Result<List<HotelEntity>> = runCatching {
         // Route to the Hotels collection for the given user and itinerary
         val snaps = firestore
             .collection("Users").document(userId)
@@ -93,7 +93,7 @@ class FirestoreHotelImpl @Inject constructor (
                     EntityId(itinId)
                 )
         }
-        emit(list)
+        (list)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

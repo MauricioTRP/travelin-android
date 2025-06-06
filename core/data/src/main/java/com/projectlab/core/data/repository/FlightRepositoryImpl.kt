@@ -27,14 +27,14 @@ class FlightRepositoryImpl @Inject constructor (
         userId: String,
         itinId: String,
         flightId: String
-    ): Flow<FlightEntity?> {
+    ): Result<FlightEntity?> {
         return firestoreFlight.getFlightById(userId, itinId, flightId)
     }
 
     override suspend fun getAllFlights(
         userId: String,
         itinId: String
-    ): Flow<List<FlightEntity>> {
+    ): Result<List<FlightEntity>> {
         return firestoreFlight.getAllFlightsForItinerary(userId, itinId)
     }
 
@@ -59,7 +59,7 @@ class FlightRepositoryImpl @Inject constructor (
         itinId: String,
         flightId: String,
         segmentId: String
-    ): Flow<FlightSegmentEntity?> {
+    ): Result<FlightSegmentEntity?> {
         return firestoreFlight.getFlightSegmentById(userId, itinId, flightId, segmentId)
     }
 
@@ -67,7 +67,7 @@ class FlightRepositoryImpl @Inject constructor (
         userId: String,
         itinId: String,
         flightId: String
-    ): Flow<List<FlightSegmentEntity>> {
+    ): Result<List<FlightSegmentEntity>> {
         return firestoreFlight.getAllFlightSegmentsForFlight(userId, itinId, flightId)
     }
 

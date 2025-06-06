@@ -17,8 +17,8 @@ import kotlinx.coroutines.flow.Flow
 interface FlightRepository {
     // English: Operations on the main flight
     suspend fun createFlight(flight: FlightEntity): Result<EntityId>
-    suspend fun getFlightById(userId: String, itinId: String, flightId: String): Flow<FlightEntity?>
-    suspend fun getAllFlights(userId: String, itinId: String): Flow<List<FlightEntity>>
+    suspend fun getFlightById(userId: String, itinId: String, flightId: String): Result<FlightEntity?>
+    suspend fun getAllFlights(userId: String, itinId: String): Result<List<FlightEntity>>
     suspend fun updateFlight(flight: FlightEntity): Result<Unit>
     suspend fun deleteFlight(userId: String, itinId: String, flightId: String): Result<Unit>
 
@@ -29,12 +29,12 @@ interface FlightRepository {
         itinId: String,
         flightId: String,
         segmentId: String,
-    ): Flow<FlightSegmentEntity?>
+    ): Result<FlightSegmentEntity?>
     suspend fun getAllFlightSegments(
         userId: String,
         itinId: String,
         flightId: String,
-    ): Flow<List<FlightSegmentEntity>>
+    ): Result<List<FlightSegmentEntity>>
     suspend fun updateFlightSegment(segment: FlightSegmentEntity): Result<Unit>
     suspend fun deleteFlightSegment(
         userId: String,

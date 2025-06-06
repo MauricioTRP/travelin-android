@@ -44,14 +44,14 @@ class HotelsRepositoryImpl @Inject constructor(
         userId: String,
         itinId: String,
         hotelId: String,
-    ): Flow<HotelEntity?> {
+    ): kotlin.Result<HotelEntity?> {
         return firestoreHotel.getHotelsById(userId, itinId, hotelId)
     }
 
     override suspend fun getAllHotels(
         userId: String,
         itinId: String,
-    ): Flow<List<HotelEntity>> {
+    ): kotlin.Result<List<HotelEntity>> {
         return firestoreHotel.getAllHotelsForItinerary(userId, itinId)
     }
 

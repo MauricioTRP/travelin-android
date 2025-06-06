@@ -35,25 +35,25 @@ class FirestoreUserImpl @Inject constructor(
         EntityId(docRef.id)
     }
 
-    override suspend fun getUserById(id: String): Flow<UserEntity?> = flow {
+    override suspend fun getUserById(id: String): Result<UserEntity?> = runCatching {
         // Reference user document by ID:
         val snap = userCol.document(id).get().await()
         if (snap.exists()) {
             val dto = snap.toObject(FirestoreUserDTO::class.java)
-            emit(dto?.toDomain(snap.id))
+            (dto?.toDomain(snap.id))
         } else {
-            emit(null)
+            (null)
         }
     }
 
-    override suspend fun getAllUsers(): Flow<List<UserEntity>> = flow {
+    override suspend fun getAllUsers(): Result<List<UserEntity>> = runCatching {
         // Fetch all users from the collection
         val snap = userCol.get().await()
         val list = snap.documents.mapNotNull { doc ->
             doc.toObject(FirestoreUserDTO::class.java)
                 ?.toDomain(doc.id)
         }
-        emit(list)
+        (list)
     }
 
     override suspend fun updateUser(user: UserEntity): Result<Unit> = runCatching {

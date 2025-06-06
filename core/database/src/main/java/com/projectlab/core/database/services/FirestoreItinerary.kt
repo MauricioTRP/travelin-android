@@ -16,8 +16,8 @@ import kotlin.Unit;
 
 interface FirestoreItinerary {
     suspend fun createItinerary(itinerary: ItineraryEntity): Result<EntityId>
-    suspend fun getItinerariesById(userId: String, itineraryId: String): Flow<ItineraryEntity?>
-    suspend fun getAllItinerariesForUser(userId: String): Flow<List<ItineraryEntity>>
+    suspend fun getItinerariesById(userId: String, itineraryId: String): Result<ItineraryEntity?>
+    suspend fun getAllItinerariesForUser(userId: String): Result<List<ItineraryEntity>>
     suspend fun updateItinerary(itinerary: ItineraryEntity): Result<Unit>
     suspend fun deleteItinerary(userId: String, itineraryId: String): Result<Unit>
 }

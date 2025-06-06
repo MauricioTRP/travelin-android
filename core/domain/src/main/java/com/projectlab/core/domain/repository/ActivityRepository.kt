@@ -24,11 +24,11 @@ interface ActivityRepository {
         userId: String,
         itinId: String,
         activityId: String,
-    ): Flow<ActivityEntity?>
+    ): kotlin.Result<ActivityEntity?>
     suspend fun getAllActivities(
         userId: String,
         itinId: String,
-    ): Flow<List<ActivityEntity>>
+    ): kotlin.Result<List<ActivityEntity>>
     suspend fun updateActivity(activity: ActivityEntity): kotlin.Result<Unit>
     suspend fun deleteActivity(
         userId: String,

@@ -20,8 +20,8 @@ import kotlinx.coroutines.flow.Flow
 interface HotelsRepository {
 
     suspend fun createHotel(hotel: HotelEntity): kotlin.Result<EntityId>
-    suspend fun getHotelById(userId: String, itinId: String, hotelId: String): Flow<HotelEntity?>
-    suspend fun getAllHotels(userId: String, itinId: String): Flow<List<HotelEntity>>
+    suspend fun getHotelById(userId: String, itinId: String, hotelId: String): kotlin.Result<HotelEntity?>
+    suspend fun getAllHotels(userId: String, itinId: String): kotlin.Result<List<HotelEntity>>
     suspend fun updateHotel(hotel: HotelEntity): kotlin.Result<Unit>
     suspend fun deleteHotel(userId: String, itinId: String, hotelId: String): kotlin.Result<Unit>
 

@@ -1,5 +1,7 @@
 package com.projectlab.core.data.model
 
+import com.projectlab.core.domain.model.Activity
+
 /**
  * Data Transfer Object (DTO) representing an activity.
  * This is used to transfer data between the application and the API.
@@ -25,3 +27,16 @@ data class ActivityDto(
     val minimumDuration: String,
     val rating: Float
 )
+
+/*fun Activity.toDto(): ActivityDto {
+    return ActivityDto(
+        id = id,
+        name = name,
+        description = description,
+        geoCode = LocationDataDto(latitude, longitude),
+        price = PriceDto(price, currency),
+        pictures = pictures,
+        minimumDuration = minimumDuration,
+        rating = rating
+    )
+}*/

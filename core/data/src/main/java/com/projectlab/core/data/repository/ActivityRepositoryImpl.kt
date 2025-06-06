@@ -38,14 +38,14 @@ class ActivityRepositoryImpl @Inject constructor(
         userId: String,
         itinId: String,
         activityId: String
-    ): Flow<ActivityEntity?> {
+    ): kotlin.Result<ActivityEntity?> {
         return firestoreActivity.getActivityById(userId, itinId, activityId)
     }
 
     override suspend fun getAllActivities(
         userId: String,
         itinId: String
-    ): Flow<List<ActivityEntity>> {
+    ): kotlin.Result<List<ActivityEntity>> {
         return firestoreActivity.getAllActivitiesForItinerary(userId, itinId)
     }
 

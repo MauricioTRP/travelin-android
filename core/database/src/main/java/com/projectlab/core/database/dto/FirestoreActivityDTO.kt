@@ -13,37 +13,43 @@ import java.util.Date
  * Data Transfer Object (DTO) for Firestore Activity.
  *
  * @property name The name of the activity.
- * @property locationRef A reference to the location document in Firestore.
+ * @property latitude The latitude coordinate of the activity location.
+ * @property longitude The longitude coordinate of the activity location.
  * @property activityDate The date of the activity.
- * @property details The details of the activity.
- * @property activityPrice The price of the activity.
+ * @property description The details of the activity.
+ * @property amount The amount associated with the activity, typically a price.
+ * @property currencyCode The currency code for the amount, e.g., USD, EUR.
  *
  * @author ricardoceadev
  */
 
 data class FirestoreActivityDTO (
     val name: String = "",
-    val locationRef: DocumentReference? = null,
+    val latitude: Double = 0.0,
+    val longitude: Double = 0.0,
     val activityDate: Timestamp = Timestamp.now(),
-    val details: String = "",
-    val activityPrice: Double = 0.0
+    val description: String = "",
+    val amount: String = "",
+    val currencyCode: String = "",
 ) {
     companion object {
+        // Converts a domain model ActivityEntity to a FirestoreActivityDTO.
         @RequiresApi(Build.VERSION_CODES.O)
         fun fromDomain(
             domain: ActivityEntity,
             userDoc: DocumentReference,
             itineraryDoc: DocumentReference,
-            locationDoc: DocumentReference
         ): FirestoreActivityDTO = FirestoreActivityDTO(
             name          = domain.name,
-            locationRef   = locationDoc,
+            latitude      = domain.latitude,
+            longitude     = domain.longitude,
             activityDate  = Timestamp(Date.from(domain.activityDate)),
-            details       = domain.details,
-            activityPrice = domain.activityPrice
+            description   = domain.description,
+            amount        = domain.amount,
+            currencyCode  = domain.currencyCode,
         )
     }
-
+    // Converts a FirestoreActivityDTO to a domain model ActivityEntity.
     @RequiresApi(Build.VERSION_CODES.O)
     fun toDomain(
         docId: String,
@@ -52,10 +58,12 @@ data class FirestoreActivityDTO (
     ): ActivityEntity = ActivityEntity(
         id            = docId,
         name          = name,
-        locationRef   = locationRef?.let { EntityId(it.id) },
+        latitude      = latitude,
+        longitude     = longitude,
         activityDate  = Instant.ofEpochMilli(activityDate.toDate().time),
-        details       = details,
-        activityPrice = activityPrice,
+        description   = description,
+        amount        = amount,
+        currencyCode  = currencyCode,
         userRef       = userRef,
         itineraryRef  = itineraryRef
     )

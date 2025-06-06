@@ -55,7 +55,7 @@ class UsersRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getAllUsers(): Flow<List<UserEntity>> {
+    override suspend fun getAllUsers(): Result<List<UserEntity>> {
         return firestoreUser.getAllUsers()
     }
 

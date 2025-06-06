@@ -41,7 +41,7 @@ class FirestoreItineraryImpl @Inject constructor (
     override suspend fun getItinerariesById(
         userId: String,
         itineraryId: String
-    ): Flow<ItineraryEntity?> = flow {
+    ): Result<ItineraryEntity?> = runCatching {
         // we get the snapshot and map it to the DTO
         // If the snapshot exists, we map to domain, convert it to a ItineraryEntity and emit
         // Otherwise, we emit null
@@ -50,16 +50,18 @@ class FirestoreItineraryImpl @Inject constructor (
             .get().await()
         if (snap.exists()) {
             val dto = snap.toObject(FirestoreItineraryDTO::class.java)
-            emit(dto?.toDomain(
+            (dto?.toDomain(
                 docId = snap.id,
                 userRef =  EntityId(userId))
             )
         } else {
-            emit(null)
+            (null)
         }
     }
 
-    override suspend fun getAllItinerariesForUser(userId: String): Flow<List<ItineraryEntity>> = flow {
+    override suspend fun getAllItinerariesForUser(
+        userId: String
+    ): Result<List<ItineraryEntity>> = runCatching {
         // Fetch all itineraries for a user
         // Route to the itineraries collection of the user
         val snaps = usersCol.document(userId)
@@ -73,7 +75,7 @@ class FirestoreItineraryImpl @Inject constructor (
                     userRef = EntityId(userId)
                 )
         }
-        emit(list)
+        (list)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

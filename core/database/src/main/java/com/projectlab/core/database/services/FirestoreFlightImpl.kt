@@ -65,7 +65,7 @@ class FirestoreFlightImpl @Inject constructor (
         userId: String,
         itinId: String,
         flightId: String
-    ): Flow<FlightEntity?> = flow {
+    ): Result<FlightEntity?> = runCatching {
         // Get the document reference for the flight
         val docRef = firestore
             .collection("Users").document(userId)
@@ -77,7 +77,7 @@ class FirestoreFlightImpl @Inject constructor (
         val snap = docRef.get().await()
         if (snap.exists()) {
             val dto = snap.toObject(FirestoreFlightDTO::class.java)
-            emit(
+            (
                 dto?.toDomain(
                     docId = snap.id,
                     userRef = EntityId(userId),
@@ -85,14 +85,14 @@ class FirestoreFlightImpl @Inject constructor (
                 )
             )
         } else {
-            emit(null)
+            (null)
         }
     }
 
     override suspend fun getAllFlightsForItinerary(
         userId: String,
         itinId: String
-    ): Flow<List<FlightEntity>> = flow {
+    ): Result<List<FlightEntity>> = runCatching {
         // route to the Flights collection for the given user and itinerary
         val snaps = firestore
             .collection("Users").document(userId)
@@ -108,7 +108,7 @@ class FirestoreFlightImpl @Inject constructor (
                     itineraryRef = EntityId(itinId)
                 )
         }
-        emit(list)
+        (list)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -205,7 +205,7 @@ class FirestoreFlightImpl @Inject constructor (
         itinId: String,
         flightId: String,
         segmentId: String
-    ): Flow<FlightSegmentEntity?> = flow {
+    ): Result<FlightSegmentEntity?> = runCatching {
         // Get the document reference for the flight segment
         val docRef = firestore
             .collection("Users").document(userId)
@@ -219,7 +219,7 @@ class FirestoreFlightImpl @Inject constructor (
         val snap = docRef.get().await()
         if (snap.exists()) {
             val dto = snap.toObject(FirestoreFlightSegmentDTO::class.java)
-            emit(
+            (
                 dto?.toDomain(
                     docId = snap.id,
                     userRef = EntityId(userId),
@@ -228,7 +228,7 @@ class FirestoreFlightImpl @Inject constructor (
                 )
             )
         } else {
-            emit(null)
+            (null)
         }
     }
 
@@ -236,7 +236,7 @@ class FirestoreFlightImpl @Inject constructor (
         userId: String,
         itinId: String,
         flightId: String
-    ): Flow<List<FlightSegmentEntity>> = flow {
+    ): Result<List<FlightSegmentEntity>> = runCatching {
         // Route to the FlightSegments collection for the given user, itinerary and flight
         val snaps = firestore
             .collection("Users").document(userId)
@@ -254,7 +254,7 @@ class FirestoreFlightImpl @Inject constructor (
                     flightRef = EntityId(flightId)
                 )
         }
-        emit(list)
+        (list)
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

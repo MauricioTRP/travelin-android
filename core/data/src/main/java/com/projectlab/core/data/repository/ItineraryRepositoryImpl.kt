@@ -24,11 +24,11 @@ class ItineraryRepositoryImpl  @Inject constructor(
     override suspend fun getItineraryById(
         userId: String,
         itineraryId: String
-    ): Flow<ItineraryEntity?> {
+    ): Result<ItineraryEntity?> {
         return firestoreItinerary.getItinerariesById(userId, itineraryId)
     }
 
-    override suspend fun getAllItineraries(userId: String): Flow<List<ItineraryEntity>> {
+    override suspend fun getAllItineraries(userId: String): Result<List<ItineraryEntity>> {
         return firestoreItinerary.getAllItinerariesForUser(userId)
     }
 

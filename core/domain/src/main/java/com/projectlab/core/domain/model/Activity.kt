@@ -3,7 +3,7 @@ package com.projectlab.core.domain.model
 /**
  * Represents an activity with its details.
  * This data class is used to encapsulate the information about an activity
- * inside the application.
+ * inside the application, that comes from external services.
  *
  * @property id Unique identifier for the activity.
  * @property name Name of the activity.
