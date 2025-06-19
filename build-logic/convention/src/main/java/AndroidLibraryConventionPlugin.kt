@@ -38,12 +38,15 @@ class AndroidLibraryConventionPlugin: Plugin<Project> {
                 "testImplementation"(libs.findLibrary("kotlinx-coroutines-test").get())
                 "testImplementation"(libs.findLibrary("androidx-test-core").get())
                 "testImplementation"(libs.findLibrary("androidx-test-core-ktx").get())
+                "testImplementation"(libs.findLibrary("mockito-core").get())
+                "testImplementation"(libs.findLibrary("mockito-kotlin").get())
                 "androidTestImplementation"(libs.findLibrary("kotlinx-coroutines-test").get())
                 "androidTestImplementation"(libs.findLibrary("androidx-test-core").get())
                 "androidTestImplementation"(libs.findLibrary("androidx-test-core-ktx").get())
                 "androidTestImplementation"(libs.findLibrary("androidx-junit").get())
                 "androidTestImplementation"(libs.findLibrary("androidx-test-rules").get())
                 "androidTestImplementation"(libs.findLibrary("androidx-espresso.core").get())
+                "androidTestImplementation"(libs.findLibrary("mockito-android").get())
             }
         }
     }

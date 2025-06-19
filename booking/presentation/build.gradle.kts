@@ -36,7 +36,6 @@ dependencies {
     // Proto DataStore
     implementation(libs.androidx.datastore)
     implementation(libs.protobuf.javalite)
-
     // Testing
     implementation(libs.androidx.junit.ktx)
     testImplementation(libs.mockito.kotlin)
